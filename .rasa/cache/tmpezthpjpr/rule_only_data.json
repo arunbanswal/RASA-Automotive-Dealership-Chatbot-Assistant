@@ -1,0 +1,21 @@
+{
+  "rule_only_slots": [],
+  "rule_only_loops": [
+    "refill_last_name_form",
+    "existing_customer_details_form",
+    "refill_service_mobile_number_form",
+    "query_mobile_number_refill_form",
+    "refill_service_car_model_name_form",
+    "booking_service_details_form",
+    "need_help_form",
+    "refill_first_name_form",
+    "status_form",
+    "refill_mobile_number_form",
+    "refill_email_address_form",
+    "refill_service_user_name_form",
+    "refill_service_approximate_kilometers_form",
+    "refill_service_car_number_form",
+    "query_name_refill_form",
+    "new_customer_reg_form"
+  ]
+}

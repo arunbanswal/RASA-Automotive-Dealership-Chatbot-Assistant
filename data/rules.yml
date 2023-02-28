@@ -1,0 +1,370 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+
+- rule: Anytime the user types something gibberish
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+
+
+
+- rule: Back to FAQ
+  steps:
+  - intent: back_faq
+  - action: utter_faq_list
+
+
+### FIRST FORM WHERE THE USER'S DATA IS BEING ASKED AND THEN SUBMITTED INTO A JSON FILE
+- rule: Activating the NEW CUSTOMER REG FORM
+  steps:
+  - intent: new_customer
+  - action: new_customer_reg_form
+  - active_loop: new_customer_reg_form
+
+- rule: Deactivating the NEW CUSTOMER REG FORM
+  condition:
+  - active_loop: new_customer_reg_form
+  steps:
+  - action: new_customer_reg_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_ask_details_correct
+
+
+
+### REFILLING ALL THE SLOTS USING FORMS
+
+- rule: Activating the form for REFILLING THE SLOT 1 
+  steps:
+  - intent: refill_first_name
+  - action: refill_first_name_form
+  - active_loop: refill_first_name_form
+
+- rule: Deactivating the form for REFILLING THE SLOT 1
+  condition:
+  - active_loop: refill_first_name_form
+  steps:
+  - action: refill_first_name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_first_name
+  - action: utter_ask_details_correct
+  - action: action_reset_sl_first_name
+
+- rule: Activating the form for REFILLING THE SLOT 2
+  steps:
+  - intent: refill_last_name
+  - action: refill_last_name_form
+  - active_loop: refill_last_name_form
+
+- rule: Deactivating the form for REFILLING THE SLOT 2
+  condition:
+  - active_loop: refill_last_name_form
+  steps:
+  - action: refill_last_name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_last_name
+  - action: utter_ask_details_correct
+  - action: action_reset_sl_last_name
+
+- rule: Activating the form for REFILLING THE SLOT 3
+  steps:
+  - intent: refill_email_address
+  - action: refill_email_address_form
+  - active_loop: refill_email_address_form
+
+- rule: Deactivating the form for REFILLING THE SLOT 3
+  condition:
+  - active_loop: refill_email_address_form
+  steps:
+  - action: refill_email_address_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_email_address
+  - action: utter_ask_details_correct
+  - action: action_reset_sl_email_address
+
+- rule: Activating the form for REFILLING THE SLOT 4
+  steps:
+  - intent: refill_mobile_number
+  - action: refill_mobile_number_form
+  - active_loop: refill_mobile_number_form
+
+- rule: Deactivating the form for REFILLING THE SLOT 4
+  condition:
+  - active_loop: refill_mobile_number_form
+  steps:
+  - action: refill_mobile_number_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_mobile_number
+  - action: utter_ask_details_correct
+  - action: action_reset_sl_mobile_number
+
+
+### ASKING EXISTING CUSTOMER'S MOBILE NUMBER
+
+- rule: Activating the form FOR GETTING THE EXISTING CUSTOMER'S MOBILE NUMBER
+  steps:
+  - intent: existing_customer
+  - action: existing_customer_details_form
+  - active_loop: existing_customer_details_form
+
+- rule: Deactivating the form FOR GETTING THE EXISTING CUSTOMER'S MOBILE NUMBER
+  condition:
+  - active_loop: existing_customer_details_form
+  steps:
+  - action: existing_customer_details_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_validating_mobile_number
+  - action: action_reset_slot_existing_mobile_number
+
+
+
+### Activating the NEED HELP FORM
+
+- rule: Activating the NEED HELP FORM 
+  steps:
+  - intent: need_help
+  - action: need_help_form
+  - active_loop: need_help_form
+
+- rule: Deactivating the NEED HELP FORM
+  condition:
+  - active_loop: need_help_form
+  steps:
+  - action: need_help_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_ask_user_details_confirm
+
+- rule: Submit if Confirmed
+  steps: 
+  - intent: confirm_user_details_need_help
+  - action: action_submit_user_query
+  - action: action_reset_all_slots
+  - action: utter_need_anything_else
+
+
+
+
+
+#### User Query Form Refill Slots
+
+
+- rule: Activating the form to collect the USER Details to refill the slots USERNAME
+  steps:
+  - intent: name_refill_query
+  - action: query_name_refill_form
+  - active_loop: query_name_refill_form
+
+- rule: Deactivating the form collect the user details to refill the slots USERNAME
+  condition:
+  - active_loop: query_name_refill_form
+  steps:
+  - action: query_name_refill_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_query_user_name
+  - action: utter_ask_user_details_confirm
+  - action: action_reset_slot_query_user_name
+
+
+- rule: Activating the form to collect the USER Details to refill the slots MOBILE NUMBER
+  steps:
+  - intent: mobile_number_refill_query
+  - action: query_mobile_number_refill_form
+  - active_loop: query_mobile_number_refill_form
+
+- rule: Deactivating the form collect the user details to refill the slots MOBILE NUMBER
+  condition:
+  - active_loop: query_mobile_number_refill_form
+  steps:
+  - action: query_mobile_number_refill_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_query_mobile_number
+  - action: utter_ask_user_details_confirm
+  - action: action_reset_slot_query_mobile_number
+
+
+
+
+### CAR BOOKING FORM  
+
+- rule: Activating the car booking details form
+  steps:
+  - intent: car_service
+  - action: booking_service_details_form
+  - active_loop: booking_service_details_form
+
+- rule: Deactivating the car booking details form
+  condition:
+  - active_loop: booking_service_details_form
+  steps:
+  - action: booking_service_details_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_confirm_booking_service_details
+
+- rule: Saving the details into JSON file
+  steps:
+  - intent: confirm_booking_details
+  - action: action_save_booking_details
+  - action: action_reset_all_slots
+  - action: utter_need_anything_else
+
+
+
+#### Checking the status of the query from the JSON File
+
+- rule: Activating the Service Status Check Form
+  steps:
+  - intent: service_status_check
+  - action: status_form
+  - active_loop: status_form
+
+- rule: Deactivating the service status check form
+  condition:
+  - active_loop: status_form
+  steps:
+  - action: status_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_check_status
+  - action: action_reset_all_slots
+  - action: utter_need_anything_else
+
+
+
+
+###   Refilling the Service Booking Forms
+
+
+#### Form 1 - Car Model
+
+- rule: Activating Refilling the booking service Car Model name  
+  steps:
+  - intent: refill_car_model_name
+  - action: refill_service_car_model_name_form
+  - active_loop: refill_service_car_model_name_form
+
+- rule: Deactivating refilling the booking service car model name
+  condition:
+  - active_loop: refill_service_car_model_name_form
+  steps:
+  - action: refill_service_car_model_name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_car_model_name
+  - action: utter_confirm_booking_service_details
+  - action: action_reset_booking_slots_car_model
+
+
+
+#### Form 2 - Car Number
+
+- rule: Activating Refilling the booking service Car number name  
+  steps:
+  - intent: refill_car_number
+  - action: refill_service_car_number_form
+  - active_loop: refill_service_car_number_form
+
+- rule: Deactivating refilling the booking service car number name
+  condition:
+  - active_loop: refill_service_car_number_form
+  steps:
+  - action: refill_service_car_number_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_car_number
+  - action: utter_confirm_booking_service_details
+  - action: action_reset_booking_slots_car_number
+
+
+
+###   Form 3 - Approximate Kilometers
+
+- rule: Activating Refilling the booking service approximate kilometers  
+  steps:
+  - intent: refill_approximate_kilometers
+  - action: refill_service_approximate_kilometers_form
+  - active_loop: refill_service_approximate_kilometers_form
+
+- rule: Deactivating refilling the booking service approximate kilometers
+  condition:
+  - active_loop: refill_service_approximate_kilometers_form
+  steps:
+  - action: refill_service_approximate_kilometers_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_approximate_kilometers
+  - action: utter_confirm_booking_service_details
+  - action: action_reset_booking_slots_approximate_km
+
+
+
+### Form 4 - User Name
+
+- rule: Activating Refilling the booking service USER NAME 
+  steps:
+  - intent: refill_service_user_name
+  - action: refill_service_user_name_form
+  - active_loop: refill_service_user_name_form
+
+- rule: Deactivating refilling the booking service USER NAME
+  condition:
+  - active_loop: refill_service_user_name_form
+  steps:
+  - action: refill_service_user_name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_user_name
+  - action: utter_confirm_booking_service_details
+  - action: action_reset_booking_slots_user_name
+
+
+
+### Form 5 - Mobile Number
+
+- rule: Activating Refilling the booking service approximate kilometers  
+  steps:
+  - intent: refill_service_mobile_number
+  - action: refill_service_mobile_number_form
+  - active_loop: refill_service_mobile_number_form
+
+- rule: Deactivating refilling the booking service approximate kilometers
+  condition:
+  - active_loop: refill_service_mobile_number_form
+  steps:
+  - action: refill_service_mobile_number_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_refill_booking_mobile_number
+  - action: utter_confirm_booking_service_details
+  - action: action_reset_booking_slots_mobile_number

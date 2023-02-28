@@ -1,0 +1,103 @@
+version: "3.1"
+
+stories:
+
+- story: Greetings
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_iamabot
+  - intent: new_car_enquiry
+  - action: utter_ask_new_existing
+
+
+- story: FAQ List
+  steps: 
+  - intent: knowledge_based
+  - action: utter_faq_list
+
+- story: FAQ1
+  steps:
+  - intent: faq1
+  - action: utter_faq1
+
+- story: FAQ2
+  steps:
+  - intent: faq2
+  - action: utter_faq2
+
+- story: FAQ3
+  steps: 
+  - intent: faq3
+  - action: utter_faq3
+
+- story: FAQ4
+  steps: 
+  - intent: faq4
+  - action: utter_faq4
+
+
+- story: Ending the FAQs
+  steps:
+  - intent: end_faq
+  - action: utter_need_anything_else
+
+
+- story: Back to main menu
+  steps:
+  - intent: back_to_mm
+  - action: utter_need_anything_else
+
+
+
+
+- story: Incorrect details
+  steps:
+  - intent: reject_details
+  - action: utter_refill
+
+
+
+- story: New Car details for KIA SONET
+  steps: 
+  - intent: kia_sonet
+  - action: utter_kia_sonet
+  - action: utter_staff_will_connect
+  - action: utter_need_anything_else
+
+- story: New Car details for KIA SELTOS
+  steps:
+  - intent: kia_seltos
+  - action: utter_kia_seltos
+  - action: utter_staff_will_connect
+  - action: utter_need_anything_else
+
+
+- story: New Car details for KIA CARNIVAL
+  steps: 
+  - intent: kia_carnival
+  - action: utter_kia_carnival
+  - action: utter_staff_will_connect
+  - action: utter_need_anything_else
+
+
+- story: Saving the information into a JSON file when the user confirms the details
+  steps: 
+  - intent: confirm_details
+  - action: action_save_user_data
+  - action: action_reset_all_slots
+  - action: utter_ask_car_list
+
+  
+
+- story: Rejecting the user details confirmation in NEED HELP WITH SOMETHING ELSE
+  steps:
+  - intent: reject_user_details_need_help
+  - action: utter_ask_which_user_details_refill
+
+
+
+- story: Refill the Service Booking Details
+  steps:
+  - intent: reject_booking_details
+  - action: utter_ask_refill_service_details

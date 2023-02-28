@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Rasa Core Visualisation</title>
+    <script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
+    <script src="https://dagrejs.github.io/project/dagre/latest/dagre.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://dagrejs.github.io/project/graphlib-dot/v0.6.3/graphlib-dot.js"></script>
+</head>
+<body>
+<div id="errormsg" style="color: #b00"></div>
+<svg>
+    <style id="graph-style">
+        .node.invisible > rect {
+            display: none;
+        }
+
+        .node.start > rect {
+            fill: #7f7;
+            rx: 30;
+            ry: 18;
+        }
+
+        .node.end > rect {
+            fill: #f77;
+            rx: 30;
+            ry: 18;
+        }
+
+        .node:not(.active) > rect, .node:not(.active) > .label {
+            opacity: 0.4;
+        }
+
+        .edgePath:not(.active) path {
+            opacity: 0.4;
+        }
+
+        .node.ellipsis > rect {
+            fill: #CCC;
+        }
+
+        .node.intent > rect {
+            fill: #7ff;
+        }
+
+        .node.dashed > rect {
+            stroke-dasharray: 5;
+        }
+
+        text {
+            font-weight: 300;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serf, serif;
+            font-size: 14px;
+            color: #1f1d1d;
+        }
+
+        .node rect {
+            stroke: #444;
+            fill: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .edgePath path {
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        svg {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            height: 100%;
+            width: 100%
+        }
+    </style>
+    <g></g>
+</svg>
+<script>
+
+  function serveGraph() {
+    let oldInputGraphValue;
+
+    const url = 'visualization.dot';
+    const refreshInterval = 500;
+
+    // trigger a refresh by fetching an updated graph
+    setInterval(function () {
+      fetch(url).then(r => r.text()).then(dot => {
+        document.getElementById('errormsg').innerHTML = '';
+        if (oldInputGraphValue === dot) return;
+
+        oldInputGraphValue = dot;
+        drawGraph(dot);
+      }).catch(err => {
+        document.getElementById('errormsg').innerHTML =
+          'Failed to update plot. (' + err.message + ')';
+      });
+    }, refreshInterval);
+  }
+
+  function drawGraph(graph) {
+    let g = graphlibDot.read(graph);
+    // Set margins, if not present
+    if (!g.graph().hasOwnProperty("marginx") &&
+      !g.graph().hasOwnProperty("marginy")) {
+      g.graph().marginx = 20;
+      g.graph().marginy = 20;
+    }
+    g.graph().transition = function (selection) {
+      return selection.transition().duration(300);
+    };
+    // Render the graph into svg g
+    d3.select("svg g").call(render, g);
+  }
+  // Set up zoom support
+  const svg = d3.select("svg"),
+    inner = d3.select("svg g"),
+    zoom = d3.zoom().on("zoom", function () {
+      inner.attr("transform", d3.event.transform);
+    });
+  svg.call(zoom);
+
+  // Create and configure the renderer
+  const render = dagreD3.render();
+
+  let isClient = false;
+  isClient = true;
+
+  if (isClient) {
+    // Mark all nodes and their edges as active
+    cssRules = document.getElementById('graph-style').sheet.cssRules;
+    cssRules[3].style.opacity = 1;
+    cssRules[4].style.opacity = 1;
+
+    let graph;
+    graph = `digraph  {
+0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
+"-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
+1 [class="", fontsize=12, label=utter_greet];
+2 [class="", fontsize=12, label=utter_iamabot];
+3 [class="", fontsize=12, label=utter_ask_new_existing];
+4 [class="", fontsize=12, label=utter_faq_list];
+5 [class="", fontsize=12, label=utter_faq1];
+6 [class="", fontsize=12, label=utter_faq2];
+7 [class="", fontsize=12, label=utter_faq3];
+8 [class="", fontsize=12, label=utter_faq4];
+9 [class="", fontsize=12, label=utter_need_anything_else];
+10 [class="", fontsize=12, label=utter_refill];
+11 [class="", fontsize=12, label=utter_kia_sonet];
+12 [class="", fontsize=12, label=utter_staff_will_connect];
+14 [class="", fontsize=12, label=utter_kia_seltos];
+17 [class="", fontsize=12, label=utter_kia_carnival];
+20 [class="", fontsize=12, label=action_save_user_data];
+21 [class="", fontsize=12, label=utter_ask_car_list];
+22 [class="", fontsize=12, label=utter_ask_which_user_details_refill];
+23 [class="", fontsize=12, label="..."];
+24 [class="", fontsize=12, label=refill_email_address_form];
+26 [class="", fontsize=12, label=refill_email_address_form];
+27 [class="", fontsize=12, label=action_refill_email_address];
+28 [class="", fontsize=12, label=utter_ask_details_correct];
+30 [class="", fontsize=12, label=refill_mobile_number_form];
+32 [class="", fontsize=12, label=refill_mobile_number_form];
+33 [class="", fontsize=12, label=action_refill_mobile_number];
+36 [class="", fontsize=12, label=existing_customer_details_form];
+38 [class="", fontsize=12, label=existing_customer_details_form];
+39 [class="", fontsize=12, label=action_validating_mobile_number];
+41 [class="", fontsize=12, label=need_help_form];
+43 [class="", fontsize=12, label=need_help_form];
+44 [class="", fontsize=12, label=utter_ask_user_details_confirm];
+46 [class="", fontsize=12, label=action_submit_user_query];
+49 [class="", fontsize=12, label=name_refill_form];
+51 [class="", fontsize=12, label=utter_goodbye];
+53 [class="", fontsize=12, label=name_refill_form];
+56 [class="", fontsize=12, label=mobile_number_refill_form];
+58 [class="", fontsize=12, label=mobile_number_refill_form];
+61 [class="", fontsize=12, label=booking_service_details_form];
+63 [class="", fontsize=12, label=booking_service_details_form];
+64 [class="", fontsize=12, label=utter_confirm_booking_service_details];
+66 [class="", fontsize=12, label=action_save_booking_details];
+67 [class="", fontsize=12, label=utter_appointment_time];
+70 [class="", fontsize=12, label=service_status_check_form];
+72 [class="", fontsize=12, label=service_status_check_form];
+73 [class="", fontsize=12, label=action_check_status];
+75 [class="", fontsize=12, label=utter_out_of_scope];
+79 [class="", fontsize=12, label=new_customer_reg_form];
+81 [class="", fontsize=12, label=new_customer_reg_form];
+84 [class="", fontsize=12, label=refill_first_name_form];
+86 [class="", fontsize=12, label=refill_first_name_form];
+87 [class="", fontsize=12, label=action_refill_first_name];
+90 [class="", fontsize=12, label=refill_last_name_form];
+92 [class="", fontsize=12, label=refill_last_name_form];
+93 [class="", fontsize=12, label=action_refill_last_name];
+95 [class=intent, fillcolor=lightblue, label=hola, shape=rect, style=filled];
+96 [class=intent, fillcolor=lightblue, label="/knowledge_based", shape=rect, style=filled];
+97 [class=intent, fillcolor=lightblue, label="/faq1", shape=rect, style=filled];
+98 [class=intent, fillcolor=lightblue, label="/faq2", shape=rect, style=filled];
+99 [class=intent, fillcolor=lightblue, label="/faq3", shape=rect, style=filled];
+100 [class=intent, fillcolor=lightblue, label="/faq4", shape=rect, style=filled];
+101 [class=intent, fillcolor=lightblue, label="/end_faq", shape=rect, style=filled];
+102 [class=intent, fillcolor=lightblue, label="/reject_details", shape=rect, style=filled];
+103 [class=intent, fillcolor=lightblue, label="/kia_sonet", shape=rect, style=filled];
+104 [class=intent, fillcolor=lightblue, label="/kia_seltos", shape=rect, style=filled];
+105 [class=intent, fillcolor=lightblue, label="/kia_carnival", shape=rect, style=filled];
+106 [class=intent, fillcolor=lightblue, label="/confirm_details", shape=rect, style=filled];
+107 [class=intent, fillcolor=lightblue, label="/reject_user_details_need_help", shape=rect, style=filled];
+108 [class=intent, fillcolor=lightblue, label="I want to know the cars that you sell", shape=rect, style=filled];
+109 [class=intent, fillcolor=lightblue, label="/refill_email_address", shape=rect, style=filled];
+110 [class=intent, fillcolor=lightblue, label="/refill_mobile_number", shape=rect, style=filled];
+111 [class=intent, fillcolor=lightblue, label="already have a kia car", shape=rect, style=filled];
+112 [class=intent, fillcolor=lightblue, label="/need_help", shape=rect, style=filled];
+113 [class=intent, fillcolor=lightblue, label="/confirm_user_details_need_help", shape=rect, style=filled];
+114 [class=intent, fillcolor=lightblue, label="/name_refill", shape=rect, style=filled];
+115 [class=intent, fillcolor=lightblue, label=bhg, shape=rect, style=filled];
+116 [class=intent, fillcolor=lightblue, label="/mobile_number_refill", shape=rect, style=filled];
+117 [class=intent, fillcolor=lightblue, label="car servicing", shape=rect, style=filled];
+118 [class=intent, fillcolor=lightblue, label="/confirm_booking_details", shape=rect, style=filled];
+119 [class=intent, fillcolor=lightblue, label="/service_status", shape=rect, style=filled];
+120 [class=intent, fillcolor=lightblue, label=iewqproiua98vanfdfnahie2, shape=rect, style=filled];
+121 [class=intent, fillcolor=lightblue, label="/back_faq", shape=rect, style=filled];
+122 [class=intent, fillcolor=lightblue, label="i am totally new custommer", shape=rect, style=filled];
+123 [class=intent, fillcolor=lightblue, label="/refill_first_name", shape=rect, style=filled];
+124 [class=intent, fillcolor=lightblue, label="/refill_last_name", shape=rect, style=filled];
+0 -> 23  [class="", key=NONE, label=""];
+0 -> 95  [class="", key=0];
+0 -> 96  [class="", key=0];
+0 -> 97  [class="", key=0];
+0 -> 98  [class="", key=0];
+0 -> 99  [class="", key=0];
+0 -> 100  [class="", key=0];
+0 -> 101  [class="", key=0];
+0 -> 102  [class="", key=0];
+0 -> 103  [class="", key=0];
+0 -> 104  [class="", key=0];
+0 -> 105  [class="", key=0];
+0 -> 106  [class="", key=0];
+0 -> 107  [class="", key=0];
+1 -> 2  [class="", key=NONE, label=""];
+2 -> 108  [class="", key=0];
+3 -> "-1"  [class="", key=NONE, label=""];
+4 -> "-1"  [class="", key=NONE, label=""];
+5 -> "-1"  [class="", key=NONE, label=""];
+6 -> "-1"  [class="", key=NONE, label=""];
+7 -> "-1"  [class="", key=NONE, label=""];
+8 -> "-1"  [class="", key=NONE, label=""];
+9 -> "-1"  [class="", key=NONE, label=""];
+10 -> "-1"  [class="", key=NONE, label=""];
+11 -> 12  [class="", key=NONE, label=""];
+12 -> 9  [class="", key=NONE, label=""];
+14 -> 12  [class="", key=NONE, label=""];
+17 -> 12  [class="", key=NONE, label=""];
+20 -> 21  [class="", key=NONE, label=""];
+21 -> "-1"  [class="", key=NONE, label=""];
+22 -> "-1"  [class="", key=NONE, label=""];
+23 -> 26  [class="", key=NONE, label=""];
+23 -> 32  [class="", key=NONE, label=""];
+23 -> 38  [class="", key=NONE, label=""];
+23 -> 43  [class="", key=NONE, label=""];
+23 -> 53  [class="", key=NONE, label=""];
+23 -> 58  [class="", key=NONE, label=""];
+23 -> 63  [class="", key=NONE, label=""];
+23 -> 72  [class="", key=NONE, label=""];
+23 -> 81  [class="", key=NONE, label=""];
+23 -> 86  [class="", key=NONE, label=""];
+23 -> 92  [class="", key=NONE, label=""];
+23 -> 109  [class="", key=0];
+23 -> 110  [class="", key=0];
+23 -> 111  [class="", key=0];
+23 -> 112  [class="", key=0];
+23 -> 113  [class="", key=0];
+23 -> 114  [class="", key=0];
+23 -> 115  [class="", key=0];
+23 -> 116  [class="", key=0];
+23 -> 117  [class="", key=0];
+23 -> 118  [class="", key=0];
+23 -> 119  [class="", key=0];
+23 -> 120  [class="", key=0];
+23 -> 121  [class="", key=0];
+23 -> 122  [class="", key=0];
+23 -> 123  [class="", key=0];
+23 -> 124  [class="", key=0];
+24 -> "-1"  [class="", key=NONE, label=""];
+26 -> 27  [class="", key=NONE, label=""];
+27 -> 28  [class="", key=NONE, label=""];
+28 -> "-1"  [class="", key=NONE, label=""];
+30 -> "-1"  [class="", key=NONE, label=""];
+32 -> 33  [class="", key=NONE, label=""];
+33 -> 28  [class="", key=NONE, label=""];
+36 -> "-1"  [class="", key=NONE, label=""];
+38 -> 39  [class="", key=NONE, label=""];
+39 -> "-1"  [class="", key=NONE, label=""];
+41 -> "-1"  [class="", key=NONE, label=""];
+43 -> 44  [class="", key=NONE, label=""];
+44 -> "-1"  [class="", key=NONE, label=""];
+46 -> 9  [class="", key=NONE, label=""];
+49 -> "-1"  [class="", key=NONE, label=""];
+51 -> "-1"  [class="", key=NONE, label=""];
+53 -> 44  [class="", key=NONE, label=""];
+56 -> "-1"  [class="", key=NONE, label=""];
+58 -> 44  [class="", key=NONE, label=""];
+61 -> "-1"  [class="", key=NONE, label=""];
+63 -> 64  [class="", key=NONE, label=""];
+64 -> "-1"  [class="", key=NONE, label=""];
+66 -> 67  [class="", key=NONE, label=""];
+67 -> 9  [class="", key=NONE, label=""];
+70 -> "-1"  [class="", key=NONE, label=""];
+72 -> 73  [class="", key=NONE, label=""];
+73 -> "-1"  [class="", key=NONE, label=""];
+75 -> "-1"  [class="", key=NONE, label=""];
+79 -> "-1"  [class="", key=NONE, label=""];
+81 -> 28  [class="", key=NONE, label=""];
+84 -> "-1"  [class="", key=NONE, label=""];
+86 -> 87  [class="", key=NONE, label=""];
+87 -> 28  [class="", key=NONE, label=""];
+90 -> "-1"  [class="", key=NONE, label=""];
+92 -> 93  [class="", key=NONE, label=""];
+93 -> 28  [class="", key=NONE, label=""];
+95 -> 1  [class="", key=0];
+96 -> 4  [class="", key=0];
+97 -> 5  [class="", key=0];
+98 -> 6  [class="", key=0];
+99 -> 7  [class="", key=0];
+100 -> 8  [class="", key=0];
+101 -> 9  [class="", key=0];
+102 -> 10  [class="", key=0];
+103 -> 11  [class="", key=0];
+104 -> 14  [class="", key=0];
+105 -> 17  [class="", key=0];
+106 -> 20  [class="", key=0];
+107 -> 22  [class="", key=0];
+108 -> 3  [class="", key=0];
+109 -> 24  [class="", key=0];
+110 -> 30  [class="", key=0];
+111 -> 36  [class="", key=0];
+112 -> 41  [class="", key=0];
+113 -> 46  [class="", key=0];
+114 -> 49  [class="", key=0];
+115 -> 51  [class="", key=0];
+116 -> 56  [class="", key=0];
+117 -> 61  [class="", key=0];
+118 -> 66  [class="", key=0];
+119 -> 70  [class="", key=0];
+120 -> 75  [class="", key=0];
+121 -> 4  [class="", key=0];
+122 -> 79  [class="", key=0];
+123 -> 84  [class="", key=0];
+124 -> 90  [class="", key=0];
+}
+`;
+    drawGraph(graph);
+  } else {
+    serveGraph();
+  }
+
+
+</script>
+</body>
+</html>

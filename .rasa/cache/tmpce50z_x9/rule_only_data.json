@@ -1,0 +1,16 @@
+{
+  "rule_only_slots": [],
+  "rule_only_loops": [
+    "new_customer_reg_form",
+    "refill_mobile_number_form",
+    "query_mobile_number_refill_form",
+    "status_form",
+    "query_name_refill_form",
+    "refill_first_name_form",
+    "need_help_form",
+    "booking_service_details_form",
+    "refill_last_name_form",
+    "existing_customer_details_form",
+    "refill_email_address_form"
+  ]
+}

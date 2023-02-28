@@ -1,0 +1,112 @@
+version: "3.1"
+nlu:
+
+
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hlo
+    - heya
+    - hiiii
+    - hey
+    - howdy
+    - hola
+
+
+- intent: out_of_scope
+  examples: |
+    - sadfasdklfjalabfaf
+    - iewqproiua98vanfdfnahie2
+    - adijv94kn2jf32
+    - asdfasdfasd
+    - vaidouoirngqajengavjkxcvn
+    - a02938yr98fhsdafjn42
+    - advj0d9vi0923b
+    - adsklajglakdfgjsldkfgj
+    - lksjgsdflksjfgs
+    - shut up
+    - idiot
+    - wtf
+    - i don't like you
+
+- intent: goodbye
+  examples: |
+    - bye
+    - tata
+    - khatam
+    - gaya
+    - byebye
+    - goodbye
+    - fir mulakaat hogi kabhi
+    - bhg 
+    - nikal
+    - tatabyebye
+    - jaanaaa
+
+- intent: new_car_enquiry
+  examples: |
+    - show me available cars in your showroom
+    - what are the car models do you have in your showroom
+    - which car is present in your show room
+    - is there any car available in your showroom
+    - I want to know the cars that you sell
+
+- intent: car_service
+  examples: |
+    - I want to service my car
+    - service my car
+    - is there any availble slot to service my car
+    - how can i get my car serviced
+    - service my car
+    - car servicing
+    - service 
+    - my engine needs servicing
+    - i need my brakes to get serviced
+    - what day should i get my car serviced
+    - where should I get my car serviced
+    - showroom car service
+    - i have a service remaining and i want to use it to get my car serviced
+
+
+- intent: new_customer
+  examples: |
+    - i am a new customer
+    - new
+    - new customer
+    - mew customer
+    - new one
+    - not a existing cutomer
+    - i would like to signup
+    - i want to register
+    - i need a new account
+    - i am totally new custommer
+    - a new customer
+
+
+- intent: existing_customer
+  examples: |
+    - i am an existing customer
+    - existing cutomer
+    - existing
+    - not a new
+    - already a customer
+    - i have a KIA car already
+    - already have a kia car
+
+- intent: gratitude
+  examples: |
+    - thanks
+    - thank you
+    - thanking you
+    - you helped me a lot
+    - thanks for helping me
+    - helped me
+    - you are great
+    - thankyou for your help
+    - you are a great help 
+    - helping you are
+    - thnx
+    - thanksx
+    - thx
+    - thnks

@@ -1,0 +1,661 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - gratitude
+  - new_customer
+  - existing_customer
+  - knowledge_based
+  - need_help
+  - service_status_check
+  - car_service
+  - new_car_enquiry
+  - kia_sonet
+  - kia_seltos
+  - kia_carnival
+  - confirm_details
+  - reject_details
+  - refill_first_name
+  - refill_last_name
+  - refill_email_address
+  - refill_mobile_number
+  - service_kia_sonet
+  - service_kia_seltos
+  - service_kia_carnival
+  - faq1
+  - faq2
+  - faq3
+  - faq4
+  - back_faq
+  - end_faq
+  - confirm_user_details_need_help
+  - reject_user_details_need_help
+  - confirm_booking_details
+  - reject_booking_details
+  - name_refill_query
+  - mobile_number_refill_query
+  - refill_car_model_name
+  - refill_car_number
+  - refill_approximate_kilometers
+  - refill_service_user_name
+  - refill_service_mobile_number
+  - back_to_mm
+
+
+
+slots:
+  first_name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: new_customer_reg_form
+        requested_slot: first_name
+  last_name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: new_customer_reg_form
+        requested_slot: last_name
+  email_address:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: new_customer_reg_form
+        requested_slot: email_address
+  mobile_number:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: new_customer_reg_form
+        requested_slot: mobile_number
+  refill_first_name_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_first_name_form
+        requested_slot: refill_first_name_sl
+  refill_last_name_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_last_name_form
+        requested_slot: refill_last_name_sl
+  refill_email_address_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_email_address_form
+        requested_slot: refill_email_address_sl
+  refill_mobile_number_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_mobile_number_form
+        requested_slot: refill_mobile_number_sl
+  existing_customer_mobile_number_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: existing_customer_details_form
+        requested_slot: existing_customer_mobile_number_sl
+  need_help_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: need_help_form
+        requested_slot: need_help_sl
+  user_name_need_help_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: need_help_form
+        requested_slot: user_name_need_help_sl
+  mobile_number_need_help_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: need_help_form
+        requested_slot: mobile_number_need_help_sl
+  car_model_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: booking_service_details_form
+        requested_slot: car_model_sl
+  car_number_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: booking_service_details_form
+        requested_slot: car_number_sl  
+  service_mobile_number_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: booking_service_details_form
+        requested_slot: service_mobile_number_sl
+  service_user_name_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: booking_service_details_form
+        requested_slot: service_user_name_sl
+  approx_km_driven_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: booking_service_details_form
+        requested_slot: approx_km_driven_sl
+  refill_car_model_name_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_service_car_model_name_form
+        requested_slot: refill_car_model_name_sl
+  refill_car_number_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_service_car_number_form
+        requested_slot: refill_car_number_sl
+  refill_approximate_kilometers_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: refill_service_approximate_kilometers_form
+        requested_slot: refill_approximate_kilometers_sl
+  refill_service_user_name_sl:
+    type: text
+    influence_conversation: false
+    mappings: 
+    - type: from_text
+      conditions:
+      - active_loop: refill_service_user_name_form
+        requested_slot: refill_service_user_name_sl
+  refill_service_mobile_number_sl:
+    type: text
+    influence_conversation: false
+    mappings: 
+    - type: from_text
+      conditions:
+      - active_loop: refill_service_mobile_number_form
+        requested_slot: refill_service_mobile_number_sl
+  query_name_refill_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: query_name_refill_form
+        requested_slot: query_name_refill_sl
+  query_mobile_number_refill_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      conditions: 
+      - active_loop: query_mobile_number_refill_form
+        requested_slot: query_mobile_number_refill_sl
+  status_sl:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: status_form
+        requested_slot: status_sl
+  refill_status_id_sl:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+      condition:
+      - active_loop: refill_status_id_form
+        requested_slot: refill_status_id_sl
+
+forms:
+  need_help_form:
+    required_slots:
+    - need_help_sl
+    - user_name_need_help_sl
+    - mobile_number_need_help_sl
+  new_customer_reg_form:
+    required_slots:
+    - first_name
+    - last_name
+    - email_address
+    - mobile_number
+  refill_first_name_form:
+    required_slots:
+    - refill_first_name_sl
+  refill_last_name_form:
+    required_slots:
+    - refill_last_name_sl
+  refill_email_address_form:
+    required_slots:
+    - refill_email_address_sl
+  refill_mobile_number_form:
+    required_slots:
+    - refill_mobile_number_sl
+  existing_customer_details_form:
+    required_slots:
+    - existing_customer_mobile_number_sl
+  booking_service_details_form:
+    required_slots:
+    - car_model_sl
+    - car_number_sl
+    - approx_km_driven_sl
+    - service_user_name_sl
+    - service_mobile_number_sl
+  refill_service_car_model_name_form:
+    required_slots: 
+    - refill_car_model_name_sl
+  refill_service_car_number_form:
+    required_slots: 
+    - refill_car_number_sl
+  refill_service_approximate_kilometers_form:
+    required_slots: 
+    - refill_approximate_kilometers_sl
+  refill_service_user_name_form:
+    required_slots: 
+    - refill_service_user_name_sl
+  refill_service_mobile_number_form:
+    required_slots:
+    - refill_service_mobile_number_sl
+  query_name_refill_form:
+    required_slots:
+    - query_name_refill_sl
+  query_mobile_number_refill_form:
+    required_slots:
+    - query_mobile_number_refill_sl
+  status_form:
+    required_slots:
+    - status_sl
+  refill_status_id_form:
+    required_slots:
+    - refill_status_id_sl
+
+responses:
+  utter_greet: 
+  - text: "Hi!"
+  - text: "Hello!"
+  - text: "Heya!"
+
+  utter_goodbye:
+  - text: "Bye."
+
+  utter_gratitude:
+  - text: "I am glad to help you."
+
+  utter_out_of_scope:
+  - text: "Sorry, I don't understand that."
+
+  utter_iamabot:
+  - text: "Welcome to SavanIB KIA Motors. How may I help you?"
+    buttons: 
+    - title: "New Car Enquiry"
+      payload: /new_car_enquiry
+    - title: "Book a Car Service"
+      payload: /car_service
+    - title: "Query Status"
+      payload: /service_status_check
+    - title: "Need help with something else"
+      payload: /need_help
+    - title: "Knowledge Based"
+      payload: /knowledge_based
+    button_type: 'vertical'
+
+  utter_help:
+  - text: "How may I help you?"
+    buttons: 
+    - title: "New Car Enquiry"
+      payload: /new_car_enquiry
+    - title: "Book a Car Service"
+      payload: /car_service
+    - title: "Query Status"
+      payload: /service_status_check
+    - title: "Need help with something else"
+      payload: /need_help
+    - title: "Knowledge Based"
+      payload: /knowledge_based
+    button_type: 'vertical'
+
+  utter_need_anything_else:
+  - text: "Is there anything else that I may help you with?"
+    buttons: 
+    - title: "New Car Enquiry"
+      payload: /new_car_enquiry
+    - title: "Book a Car Service"
+      payload: /car_service
+    - title: "Query Status"
+      payload: /service_status_check
+    - title: "Need help with something else"
+      payload: /need_help
+    - title: "Knowledge Based"
+      payload: /knowledge_based
+    button_type: 'vertical'
+
+  utter_ask_new_existing:
+  - text: "Are you a 'New Customer' or an 'Existing Customer'?"
+    buttons: 
+    - title: "New Customer"
+      payload: /new_customer
+    - title: "Existing Customer"
+      payload: /existing_customer
+    button_type: 'vertical'
+
+  utter_ask_car_list:
+  - text: "Please select the car model that you are interested in from below."
+    buttons: 
+    - title: "KIA Sonet"
+      payload: /kia_sonet
+    - title: "KIA Seltos"
+      payload: /kia_seltos
+    - title: "KIA Carnival"
+      payload: /kia_carnival
+    button_type: 'vertical'
+
+  utter_kia_sonet:
+  - text: "Car Name : KIA Sonet
+      \nType: Subcompact SUV
+      \nEngine Options: 83-hp three-cylinder, 120-hp four-cylinder, 1.0-liter turbo three-cylinder
+      \nDownload the brochure from the following link.\nhttps://www.kia.com/content/dam/kia2/in/en/our-vehicles/showroom/sonet/Kia-Sonet-Brochure-2022.pdf"
+
+  utter_kia_seltos:
+  - text: "Car Name : KIA Seltos
+      \nType: Compact SUV
+      \nEngine Options: 121-horsepower four-cylinder, 146-hp turbo-four, 175-hp turbo-four
+      \nDownload the brochure from the following link.\nhttps://www.kia.com/content/dam/kia2/in/en/images/our-vehicles/seltos/showroom/Seltos_Brochure_Desktop_New.pdf"
+
+  utter_kia_carnival:
+  - text: "Car Name : KIA Carnival
+      \nType: Minivan
+      \nEngine Options: 3.3-liter V6, 2.2-liter four-cylinder diesel
+      \nDownload the brochure from the following link.\nhttps://www.kia.com/content/dam/kia2/in/en/our-vehicles/showroom/carnival/Carnival-desktop-Brochure.pdf"
+  
+  utter_staff_will_connect:
+  - text: "Thank you for showing your interest into KIA Motors, we have your interest into our consideration and our staff will contact you very soon."
+
+  utter_faq_list:
+  - text: 'Following are few FAQs that might help you : '
+    buttons:
+    - title: Can I take my Kia to any Kia dealership for service and warranty repairs?
+      payload: /faq1
+    - title: How to locate the nearest Kia service centre?
+      payload: /faq2
+    - title: When should I service my Kia vehicle?
+      payload: /faq3
+    - title: How many free services can I avail for Kia?
+      payload: /faq4
+    button_type: 'vertical'
+
+  utter_faq1:
+  - text: We recommend that all your service and warranty repairs should be performed by Kia dealers where trained technicians know your Kia best and only use Kia Genuine Parts for repairs.
+    buttons:
+    - title: Back
+      payload: /back_faq
+    - title: End FAQ
+      payload: /end_faq
+
+
+  utter_faq2:
+  - text: Please go to our Dealer Locator page and browse for your nearest Kia workshop.
+    buttons:
+    - title: Back
+      payload: /back_faq
+    - title: End FAQ
+      payload: /end_faq
+
+
+  utter_faq3:
+  - text: Every Kia model has a recommended service interval for maintenance. Please refer to owner's manual for the recommended service interval
+    buttons:
+    - title: Back
+      payload: /back_faq
+    - title: End FAQ
+      payload: /end_faq
+
+
+  utter_faq4:
+  - text: First 3 services scheduled up to 1 year or 10,000 Kms are Free Services except Carens where first 3 services are scheduled up to 2 year or 20,000 Kms, please refer Owner's manual for more details. In Free Service, the labour cost for doing periodic maintenance is free while the cost of oil consumable, parts and other jobs requested by customer (but not covered in the periodic maintenance schedule) are chargeable at actual during the Free service period.
+    buttons:
+    - title: Back
+      payload: /back_faq
+    - title: End FAQ
+      payload: /end_faq
+
+
+  utter_ask_new_customer_reg_form_first_name:
+  - text: "Please enter your first name."
+  utter_ask_new_customer_reg_form_last_name:
+  - text: "Please enter your last name."
+  utter_ask_new_customer_reg_form_email_address:
+  - text: "Please enter your email address."
+  utter_ask_new_customer_reg_form_mobile_number:
+  - text: "Please enter your mobile number."
+  
+  utter_ask_details_correct:
+  - text: "Please confirm the below details if they are correct or not this information will be sent to our staff.\nFirst Name : {first_name}\nLast Name : {last_name}\nEmail Address : {email_address}\nMobile Number : {mobile_number}"
+    buttons: 
+    - title: "Confirm"
+      payload: /confirm_details
+    - title: "Edit Details"
+      payload: /reject_details
+
+  
+
+  utter_ask_refill_first_name_form_refill_first_name_sl:
+  - text: "Please enter your first name again."
+  utter_ask_refill_last_name_form_refill_last_name_sl:
+  - text: "Please enter your last name again."
+  utter_ask_refill_email_address_form_refill_email_address_sl:
+  - text: "Please enter your email address again."
+  utter_ask_refill_mobile_number_form_refill_mobile_number_sl:
+  - text: "Please enter your mobile number again."
+
+  utter_refill:
+  - text: "Which information would you like to refill?"
+    buttons:
+    - title: "First Name"
+      payload: /refill_first_name
+    - title: "Last Name"
+      payload: /refill_last_name
+    - title: "Email Address"
+      payload: /refill_email_address
+    - title: "Mobile Number"
+      payload: /refill_mobile_number
+    button_type: 'vertical'
+
+
+
+  utter_ask_service_car_name:
+  - text: "Please select your car model from below options."
+    buttons:
+    - title: "KIA Sonet"
+      payload: /service_kia_sonet
+    - title: "KIA Seltos"
+      payload: /service_kia_seltos
+    - title: "KIA Carnival"
+      payload: /service_kia_carnival
+    button_type: 'vertical'
+  utter_appointment_time:
+  - text: "You can bring your car for service on Monday Feb 27, 2023 at our workshop.\nAddress for the same is available on our website."
+
+
+  utter_ask_existing_customer_details_form_existing_customer_mobile_number_sl:
+  - text: "Please enter your mobile number."
+
+  utter_ask_need_help_form_need_help_sl:
+  - text: "Please enter your query below. This query will be submitted to our customer support staff and they will contact you soon."
+
+  utter_ask_need_help_form_user_name_need_help_sl:
+  - text: "Please enter your name."
+
+  utter_ask_need_help_form_mobile_number_need_help_sl:
+  - text: "Please enter your mobile number."
+
+  utter_ask_user_details_confirm:
+  - text: "Please confirm the details below : \nName : {user_name_need_help_sl}\nMobile Number : {mobile_number_need_help_sl}"
+    buttons: 
+    - title: "Confirm"
+      payload: /confirm_user_details_need_help
+    - title: "Edit Details"
+      payload: /reject_user_details_need_help
+
+  utter_ask_which_user_details_refill:
+  - text: "Select which detail is not correct."
+    buttons:
+    - title: "Name"
+      payload: /name_refill_query
+    - title: "Mobile Number"
+      payload: /mobile_number_refill_query
+
+  utter_ask_query_name_refill_form_query_name_refill_sl:
+  - text: "Please re-enter your name."
+  utter_ask_query_mobile_number_refill_form_query_mobile_number_refill_sl:
+  - text: "Please re-enter your mobile number."
+
+
+
+
+  utter_ask_booking_service_details_form_car_model_sl:
+  - text: "Please enter your car model name."
+
+  utter_ask_booking_service_details_form_car_number_sl:
+  - text: "Please enter your car number in 'SS 00 XX 0000' format."
+
+  utter_ask_booking_service_details_form_service_user_name_sl:
+  - text: "Please enter your name."
+
+  utter_ask_booking_service_details_form_service_mobile_number_sl:
+  - text: "Please enter your mobile number."
+
+
+  utter_ask_booking_service_details_form_approx_km_driven_sl:
+  - text: "Please enter approximate kilometers the car has run."
+
+
+  utter_confirm_booking_service_details:
+  - text: "Please confirm the below details to book your service slot.\nCar Model : {car_model_sl}\nCar Number : {car_number_sl}\nApproximate Kilometers : {approx_km_driven_sl}\nUser Name : {service_user_name_sl}\nMobile Number : {service_mobile_number_sl}"
+    buttons:
+    - title: "Confirm"
+      payload: /confirm_booking_details
+    - title: "Edit Details"
+      payload: /reject_booking_details
+
+
+  utter_ask_refill_service_details:
+  - text: "Which information is not correct?"
+    buttons: 
+    - title: "Car Model Name"
+      payload: /refill_car_model_name
+    - title: "Car Number"
+      payload: /refill_car_number
+    - title: "Approximate Kilometers"
+      payload: /refill_approximate_kilometers
+    - title: "User Name"
+      payload: /refill_service_user_name
+    - title: "Mobile Number"
+      payload: /refill_service_mobile_number
+    button_type: 'vertical'
+
+  utter_ask_refill_service_car_model_name_form_refill_car_model_name_sl:
+  - text: "Please re-enter your car model name."
+
+  utter_ask_refill_service_car_number_form_refill_car_number_sl:
+  - text: "Please re-enter your car number."
+
+  utter_ask_refill_service_approximate_kilometers_form_refill_approximate_kilometers_sl:
+  - text: "Please re-enter your approximate kilometers."
+
+  utter_ask_refill_service_user_name_form_refill_service_user_name_sl:
+  - text: "Please re-enter your name."
+
+  utter_ask_refill_service_mobile_number_form_refill_service_mobile_number_sl:
+  - text: "Please re-enter mobile number."
+
+  utter_ask_status_form_status_sl:
+  - text: "Please enter your query ID to check your query status."
+
+  utter_ask_refill_status_if_form_refill_status_id_sl:
+  - text: "Please re-enter your query ID to check your query status."
+
+
+
+actions:
+  - action_save_user_data
+  - action_refill_first_name
+  - action_refill_last_name
+  - action_refill_email_address
+  - action_refill_mobile_number
+  - action_validating_mobile_number
+  - action_submit_user_query
+  - action_save_booking_details
+  - action_refill_car_model_name
+  - action_refill_car_number
+  - action_refill_approximate_kilometers
+  - action_refill_user_name
+  - action_refill_booking_mobile_number
+  - action_refill_query_user_name
+  - action_refill_query_mobile_number
+  - action_check_status
+  - action_reset_all_slots
+  - action_reset_booking_slots_car_model
+  - action_reset_booking_slots_car_number
+  - action_reset_booking_slots_approximate_km
+  - action_reset_booking_slots_user_name
+  - action_reset_booking_slots_mobile_number
+  - action_reset_slot_query_user_name
+  - action_reset_slot_query_mobile_number
+  - action_reset_sl_first_name
+  - action_reset_sl_last_name
+  - action_reset_sl_email_address
+  - action_reset_sl_mobile_number
+  - action_reset_slot_existing_mobile_number
+
+
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
