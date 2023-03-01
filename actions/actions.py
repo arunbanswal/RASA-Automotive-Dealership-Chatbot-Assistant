@@ -351,10 +351,10 @@ class UserHelpQuery(Action):
             "Mobile Number": mobile_number,
             "User Query": user_query,
             "Querry ID": compalaint_id,
-            "Status" : "Active"
+            "Status" : "We're currently reviewing your query, our staff will contact you soon."
         }
         # Define the filename and path where the json file will be saved
-        filename = "user_data.json"
+        filename = "user_query.json"
         filepath = "./actions/"
         file = filepath + filename
 
@@ -425,7 +425,7 @@ class ServiceStatusCheck(Action):
         return "action_check_status"
 
     def run(self, dispatcher: "CollectingDispatcher", tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        filename = "user_data.json"
+        filename = "user_query.json"
         filepath = "./actions/"
         file = filepath + filename
         with open(file, "r") as f:
@@ -439,14 +439,10 @@ class ServiceStatusCheck(Action):
         service_status = user_details.get("Status")
         first_name = user_details.get("Name")
         if match_found:
-            dispatcher.utter_message(text=f"Welcome {first_name}\nQuery Status : {service_status}")
+            dispatcher.utter_message(text=f"Welcome {first_name}\n{service_status}")
         if not match_found:
-            dispatcher.utter_message(text="We could not find any query number that you provided, kindly check your appointment number and try again.")
+            dispatcher.utter_message(text="We could not find any query number that you provided, kindly check your query number and try again.")
         
-        # buttons = [{"title": "Check another query status", "payload": "/change_status_id"}]
-        # dispatcher.utter_message(text="Want to check another query status?",buttons=buttons, button_type = 'vertical')
-        # return []
-
 
 ###     RESETTING ALL THE SLOTS FILLED AFTER FORM COMPLETION
 
