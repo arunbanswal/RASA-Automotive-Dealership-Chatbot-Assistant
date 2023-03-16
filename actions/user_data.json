@@ -1,8 +1,64 @@
 {
     "user_details": [
-        
-    ],
-    "user_query": [
-        
+                {
+            "First Name": "Amardeep",
+            "Last Name": "Singh",
+            "Email Address": "amardeep@gmail.com",
+            "Mobile Number": "9190015102"
+        },
+        {
+            "First Name": "Jaggdish",
+            "Last Name": "Bhagat",
+            "Email Address": "jagdishbhagat3bar@gmail.com",
+            "Mobile Number": "9190014102"
+        },
+        {
+            "First Name": "Kailash",
+            "Last Name": "Kumar",
+            "Email Address": "kailashkumar@gmail.com",
+            "Mobile Number": "8989898909"
+        },
+        {
+            "First Name": "Kailash",
+            "Last Name": "Kumar",
+            "Email Address": "kailashkumar@gmail.com",
+            "Mobile Number": "8989898909"
+        },
+        {
+            "First Name": "Rohit",
+            "Last Name": "Vyas",
+            "Email Address": "con.vyadrohit@gmail.com",
+            "Mobile Number": "9909904436"
+        },
+        {
+            "First Name": "Junaid",
+            "Last Name": "Ansari",
+            "Email Address": "junaidansari@gmail.com",
+            "Mobile Number": "7778889990"
+        },
+        {
+            "First Name": "Sidharth",
+            "Last Name": "Vala",
+            "Email Address": "Nacd@gmail.com",
+            "Mobile Number": "9976556789"
+        },
+        {
+            "First Name": "Pradeep",
+            "Last Name": "Vala",
+            "Email Address": "Pradip@avbn.com",
+            "Mobile Number": "9975445678"
+        },
+        {
+            "First Name": "Abcd",
+            "Last Name": "Bbb",
+            "Email Address": "Ghu@fgg.com",
+            "Mobile Number": "9974115630"
+        },
+        {
+            "First Name": "John",
+            "Last Name": "D'Souza",
+            "Email Address": "johndsouza23@gmail.com",
+            "Mobile Number": "9190015102"
+        }
     ]
 }
